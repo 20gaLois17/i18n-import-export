@@ -130,7 +130,7 @@ const writeDeflatedObjectToCsv = (lang: string, obj: object) => {
 
 /**
  * this method is pretty biased, it assumes that the (top level) object keys
- * correspond to the filenames (because in the import method, this step is reversed)
+ * correspond to the filenames (because during the export the inverse is the case)
  *
  * invoking this function with the language key 'en' and targetDir './i18n/translations/'
  * and an object like this
