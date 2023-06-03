@@ -3,7 +3,7 @@ This package provides functionality to export i18n translation snippets to a .cs
 
 ---
 
-## Importan Note:
+## Important Note:
 Please note that this project is currently work in progress! I tried to walk a pragmatic path when writing this functionality for a very special usecase and then realised that I could extend it and bundle the functionality as an installable package ...
 
 ---
