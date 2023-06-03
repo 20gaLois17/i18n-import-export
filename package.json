@@ -1,6 +1,6 @@
 {
   "name": "nuxt-i18n-import-export",
-  "version": "0.0.7",
+  "version": "0.0.5",
   "description": "Provides tooling to export i18n snippets to .csv file and vice versa",
   "main": "./lib/index.js",
   "bin": {
