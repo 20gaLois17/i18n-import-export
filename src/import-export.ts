@@ -1,5 +1,7 @@
 import * as fs from 'fs';
-import * as chalk from 'chalk';
+//import * as chalk from 'chalk';
+
+const chalk = require('chalk');
 
 /**
  * export a .csv file from the ./i18n/translations/de
@@ -7,7 +9,8 @@ import * as chalk from 'chalk';
  * @param snippets The object containing all language specific i18n snippets
  * @param lang The source language to export from
  */
-export const exportToCsv = (snippets: object, lang: string): void => {
+export const exportToCsv = (/** path-to-index.ts ??? */ snippets: object, lang: string): void => {
+    // we need to rewrite this function because we cannot pass the object like this
     const snippetsFlat = deflateObject(snippets);
     try {
         const path = writeDeflatedObjectToCsv(lang, snippetsFlat);
@@ -25,8 +28,8 @@ export const exportToCsv = (snippets: object, lang: string): void => {
  * @param path The (absolute or relative) path to the .csv file
  * @param lang The target language to import to
  */
-export const importFromCsv = (path: string, lang: string): void => {
-    const buffer = fs.readFileSync(path, {encoding: 'utf8'});
+export const importFromCsv = (filepath: string, outdir: string, lang: string): void => {
+    const buffer = fs.readFileSync(filepath, {encoding: 'utf8'});
     let snippets = {};
     for (let line of buffer.split('\n')) {
         if (line === '') {
@@ -44,7 +47,9 @@ export const importFromCsv = (path: string, lang: string): void => {
         // obj is passed by reference and will be modified
         inflateObject(snippets, path, value);
     }
-    writeInflatedObject(snippets, lang);
+    console.log(snippets);
+
+    writeInflatedObject(snippets, outdir, lang);
     console.info(('i18n translation files have been written for language key ' + chalk.cyanBright(`'${lang}'`)));
 }
 
@@ -157,15 +162,15 @@ const writeDeflatedObjectToCsv = (lang: string, obj: object) => {
  */
 const writeInflatedObject = (
     data: object,
+    targetDir: string = './i18n/translations/',
     lang: string = 'fi',
-    targetDir: string = './i18n/translations/'
 ): void => {
-    const finalDest = targetDir + lang + '/';
+    const finalDest = `${targetDir}/${lang}/`;
     const keys = Object.keys(data);
 
     if (!fs.existsSync(finalDest)) {
         try {
-            fs.mkdirSync(finalDest);
+            fs.mkdirSync(finalDest, {recursive: true});
         } catch (error) {
             throw error;
         }
