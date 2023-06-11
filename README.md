@@ -1,4 +1,4 @@
-# nuxt-i18n-import
+# i18n-import-export
 This package provides functionality to export i18n translation snippets to a .csv file. Also, a given .csv file can be used to import snippets back into the project
 
 ---
